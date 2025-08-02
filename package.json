@@ -1,6 +1,6 @@
 {
   "name": "@tealbase/ssr",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "description": "Use the tealbase JavaScript library in popular server-side rendering (SSR) frameworks.",
   "main": "dist/main/index.js",
   "module": "dist/module/index.js",
@@ -44,9 +44,6 @@
   },
   "peerDependencies": {
     "@tealbase/tealbase-js": "^2.43.4"
-  },
-  "optionalDependencies": {
-    "@rollup/rollup-linux-x64-gnu": "^4.9.5"
   },
   "dependencies": {
     "cookie": "^0.6.0"
