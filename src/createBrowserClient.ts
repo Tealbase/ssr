@@ -1,4 +1,3 @@
-import { parse, serialize } from "cookie";
 import { createClient, tealbaseClient } from "@tealbase/tealbase-js";
 import type {
   GenericSchema,
@@ -6,22 +5,12 @@ import type {
 } from "@tealbase/tealbase-js/dist/module/lib/types";
 
 import { VERSION } from "./version";
-import {
-  DEFAULT_COOKIE_OPTIONS,
-  combineChunks,
-  createChunks,
-  deleteChunks,
-  isBrowser,
-  isChunkLike,
-} from "./utils";
+import { isBrowser } from "./utils";
 
 import type {
   CookieMethodsBrowser,
   CookieMethodsBrowserDeprecated,
-  CookieOptions,
   CookieOptionsWithName,
-  GetAllCookies,
-  SetAllCookies,
 } from "./types";
 
 import { createStorageFromOptions } from "./cookies";
@@ -59,7 +48,7 @@ export function createBrowserClient<
   options?: tealbaseClientOptions<SchemaName> & {
     cookies?: CookieMethodsBrowser;
     cookieOptions?: CookieOptionsWithName;
-    cookieEncoding?: "raw" | "base64url";
+    cookieEncoding?: "raw" | "base64url" | "base64url+length";
     isSingleton?: boolean;
   },
 ): tealbaseClient<Database, SchemaName, Schema>;
@@ -83,7 +72,7 @@ export function createBrowserClient<
   options?: tealbaseClientOptions<SchemaName> & {
     cookies: CookieMethodsBrowserDeprecated;
     cookieOptions?: CookieOptionsWithName;
-    cookieEncoding?: "raw" | "base64url";
+    cookieEncoding?: "raw" | "base64url" | "base64url+length";
     isSingleton?: boolean;
   },
 ): tealbaseClient<Database, SchemaName, Schema>;
@@ -102,7 +91,7 @@ export function createBrowserClient<
   options?: tealbaseClientOptions<SchemaName> & {
     cookies?: CookieMethodsBrowser | CookieMethodsBrowserDeprecated;
     cookieOptions?: CookieOptionsWithName;
-    cookieEncoding?: "raw" | "base64url";
+    cookieEncoding?: "raw" | "base64url" | "base64url+length";
     isSingleton?: boolean;
   },
 ): tealbaseClient<Database, SchemaName, Schema> {
@@ -124,7 +113,7 @@ export function createBrowserClient<
   const { storage } = createStorageFromOptions(
     {
       ...options,
-      cookieEncoding: options?.cookieEncoding ?? "base64url",
+      cookieEncoding: options?.cookieEncoding ?? "base64url+length",
     },
     false,
   );
@@ -138,7 +127,7 @@ export function createBrowserClient<
         ...options?.global,
         headers: {
           ...options?.global?.headers,
-          "X-Client-Info": `tealbase-ssr/${VERSION}`,
+          "X-Client-Info": `tealbase-ssr/${VERSION} createBrowserClient`,
         },
       },
       auth: {
