@@ -1,6 +1,6 @@
 {
   "name": "@tealbase/ssr",
-  "version": "0.4.1",
+  "version": "0.5.0",
   "description": "Use the tealbase JavaScript library in popular server-side rendering (SSR) frameworks.",
   "main": "dist/main/index.js",
   "module": "dist/module/index.js",
